@@ -1,0 +1,7 @@
+name: 'Curl Action'
+description: 'curl on localhost to check the application'
+runs:
+  using: composite
+  steps:
+  - run: curl localhost/service/hello
+    shell: bash
