@@ -1,7 +1,24 @@
-name: 'Curl Action'
-description: 'curl on localhost to check the application'
+name: 'Universal actions'
+description: 'Common actions to be called by github actions to deploy apps'
 runs:
   using: composite
   steps:
-  - run: curl localhost/service/hello
+  - name: Start minikube
+    id: minikube
+    uses: medyagh/setup-minikube@master
+  - name: Enable Ingress
+    run: minikube addons enable ingress
+    shell: bash
+  - name: Create k8s objects via their yml files
+    run: |
+      alias k="kubectl"
+      kubectl apply -f service/k8s-manifests/namespace.yml 
+      kubectl apply -f service/k8s-manifests/deployment.yml
+    shell: bash
+  - name: Check Resources
+    run: |
+          kubectl get po
+          kubectl describe po
+          kubectl describe po -n reference-service-showcase
+          kubectl logs $(kubectl get pods -n reference-service-showcase -o name | cut -d "/" -f 2) -n  reference-service-showcase
     shell: bash
