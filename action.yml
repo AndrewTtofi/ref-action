@@ -20,5 +20,4 @@ runs:
           kubectl get po
           kubectl describe po
           kubectl describe po -n reference-service-showcase
-          kubectl logs $(kubectl get pods -n reference-service-showcase -o name | cut -d "/" -f 2) -n  reference-service-showcase
     shell: bash
