@@ -6,18 +6,17 @@ runs:
   - name: Start minikube
     id: minikube
     uses: medyagh/setup-minikube@master
-  - name: Enable Ingress
-    run: minikube addons enable ingress
+  # - name: Enable Ingress
+  #   run: minikube addons enable ingress
     shell: bash
-  - name: Create k8s objects via their yml files
-    run: |
-      alias k="kubectl"
-      kubectl apply -f service/k8s-manifests/namespace.yml 
-      kubectl apply -f service/k8s-manifests/deployment.yml
+  - name: Deploy K8s resources
+    run: make deploy-resources
     shell: bash
   - name: Check Resources
     run: |
-          kubectl get po
-          kubectl describe po
-          kubectl describe po -n reference-service-showcase
+          kubectl get po -n reference-service-showcase
+    shell: bash
+  - name: Test App
+    run: |
+          curl localhost:30007/service/hello
     shell: bash
