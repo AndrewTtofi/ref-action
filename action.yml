@@ -8,7 +8,7 @@ runs:
     uses: medyagh/setup-minikube@master
   # - name: Enable Ingress
   #   run: minikube addons enable ingress
-    shell: bash
+    # shell: bash
   - name: Deploy K8s resources
     run: make deploy-resources
     shell: bash
