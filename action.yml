@@ -19,5 +19,5 @@ runs:
   - name: Test App
     run: |
           echo "MINIKUBE_IP=$(minikube ip)" >> $GITHUB_ENV
-          curl http://$MINIKUBE_IP:30007/service/hello
+          curl $MINIKUBE_IP:30007/service/hello
     shell: bash
