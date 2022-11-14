@@ -19,6 +19,6 @@ runs:
   - name: Test App
     run: |
           MINIKUBE_IP=$(minikube ip)
-          echo $MINIKUBE_IP
+          echo $MINIKUBE_IP:30007/service/hello
           curl $MINIKUBE_IP:30007/service/hello
     shell: bash
