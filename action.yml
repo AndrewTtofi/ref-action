@@ -18,7 +18,7 @@ runs:
     shell: bash
   - name: Test App
     run: |
-          MINIKUBE_IP=$(minikube ip)
-          echo $MINIKUBE_IP:30007/service/hello
-          curl $MINIKUBE_IP:30007/service/hello
+          NODE_IP=$(minikube ip)
+          CURL_IP=$(echo $NODE_IP":30007/service/hello")
+          curl $CURL_IP
     shell: bash
