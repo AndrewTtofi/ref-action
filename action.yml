@@ -3,24 +3,38 @@ description: 'Common actions to be called by github actions to deploy apps'
 runs:
   using: composite
   steps:
-  - name: Start minikube
-    id: minikube
-    uses: medyagh/setup-minikube@master
-  # - name: Enable Ingress
-  #   run: minikube addons enable ingress
-    # shell: bash
-  - name: Deploy K8s resources
-    run: make deploy-resources
-    shell: bash
-  - name: Check Resources
+  # - name: Start minikube
+  #   id: minikube
+  #   uses: medyagh/setup-minikube@master
+  # # - name: Enable Ingress
+  # #   run: minikube addons enable ingress
+  #   # shell: bash
+  # - name: Deploy K8s resources
+  #   run: make deploy-resources
+  #   shell: bash
+  # - name: Check Resources
+  #   run: |
+  #         kubectl get po -n reference-service-showcase
+  #   shell: bash
+  # - name: Test App
+  #   run: |
+  #         NODE_IP=$(minikube ip)
+  #         echo $NODE_IP
+  #         CURL_IP=$(echo ${NODE_IP}":30007/service/hello")
+  #         echo $CURL_IP
+  #         curl ${CURL_IP}
+  #   shell: bash 
+  - name: Check out repository code
+    uses: actions/checkout@v3
+  - name: Build
     run: |
-          kubectl get po -n reference-service-showcase
+      make build
     shell: bash
-  - name: Test App
+  - name: Stubbed-Functional
     run: |
-          NODE_IP=$(minikube ip)
-          echo $NODE_IP
-          CURL_IP=$(echo ${NODE_IP}":30007/service/hello")
-          echo $CURL_IP
-          curl ${CURL_IP}
-    shell: bash 
+      make local-stubbed-functional
+    shell: bash
+  - name: Stubbed-NFT
+    run: |
+       make local-stubbed-nft
+    shell: bash
